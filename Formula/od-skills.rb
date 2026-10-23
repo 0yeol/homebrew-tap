@@ -2,16 +2,13 @@ class OdSkills < Formula
   desc "169 design skills from nexu-io/open-design, installable into every AI coding agent"
   homepage "https://github.com/nexu-io/open-design"
   url "https://github.com/0yeol/od-skills/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "225fe5019fdf0a9f1a1741282c8911baf11c3b2e5e9242bd092c3ed806751ade"
+  sha256 "cc87d426c3c67409336b2dbdb7c60a088e87a7be6f8d64e6836ae864469ae32c"
   license "Apache-2.0"
 
   def install
-    # Newer brew stages the archive one level below cwd; find skills/ wherever it is.
-    src = Pathname.pwd
-    src = Pathname.new(Dir["**/skills"].first).dirname unless (src/"skills").directory?
     od = share/"od-skills"
-    od.install src/"skills" => "skills"
-    od.install src/"install.sh" => "install.sh"
+    od.install "skills"
+    od.install "install.sh"
     (bin/"od-skills").write <<~SH
       #!/bin/bash
       exec bash "#{od}/install.sh" "$@"
