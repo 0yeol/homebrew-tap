@@ -5,8 +5,6 @@ class OdSkills < Formula
   sha256 "225fe5019fdf0a9f1a1741282c8911baf11c3b2e5e9242bd092c3ed806751ade"
   license "Apache-2.0"
 
-  no_def deps
-
   def install
     share.install "skills" => "od-skills/skills"
     share.install "install.sh" => "od-skills/install.sh"
