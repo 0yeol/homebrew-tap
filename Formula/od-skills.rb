@@ -6,11 +6,15 @@ class OdSkills < Formula
   license "Apache-2.0"
 
   def install
-    share.install "skills" => "od-skills/skills"
-    share.install "install.sh" => "od-skills/install.sh"
+    # Newer brew stages the archive one level below cwd; find skills/ wherever it is.
+    src = Pathname.pwd
+    src = Pathname.new(Dir["**/skills"].first).dirname unless (src/"skills").directory?
+    od = share/"od-skills"
+    od.install src/"skills" => "skills"
+    od.install src/"install.sh" => "install.sh"
     (bin/"od-skills").write <<~SH
       #!/bin/bash
-      exec bash "#{share}/od-skills/install.sh" "$@"
+      exec bash "#{od}/install.sh" "$@"
     SH
   end
 
